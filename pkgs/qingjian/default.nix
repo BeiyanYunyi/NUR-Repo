@@ -5,6 +5,7 @@
   rustPlatform,
   pkg-config,
   openssl,
+  oniguruma,
   cmake,
   fcitx5,
   nlohmann_json,
@@ -55,7 +56,11 @@ let
       outputHashes."cosmic-text-0.19.0" = "sha256-c7DuyTTF5vkClCeGGIWBX4HAMecA+1RujvVA0fcTQRE=";
     };
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ openssl ];
+    buildInputs = [
+      openssl
+      oniguruma
+    ];
+    env.RUSTONIG_SYSTEM_LIBONIG = "1";
     # Upstream uses absolute font paths from traditional distributions.
     # Tests and runtime font discovery both need fonts from the Nix store.
     postPatch = ''
