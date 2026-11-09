@@ -1,37 +1,41 @@
-# nur-packages-template
+# NUR-Repo
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+A personal [NUR](https://github.com/nix-community/NUR) package repository.
 
-## Setup
+| Package | Source version | Platforms |
+| --- | --- | --- |
+| `rime-ice` | `99662ba01e3affa6a0f009174ca530b887bac3b6` | Same as nixpkgs rime-ice |
+| `qingjian` | v0.3.3 | Linux |
+| `patchelf-unstable` | 0.19.2-unstable-2026-10-20 | Same as nixpkgs patchelf |
+| `portop` | v0.3.0 | Linux, Darwin |
+| `mihomo-oix` | alpha-oix-9910e8e | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
 
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+The initial versions and hashes were migrated from nix-conf without modifying that repository.
 
-## README template
+## Usage
 
-# nur-packages
+```sh
+nix build .#portop
+nix run .#mihomo-oix -- -v
+# Linux
+nix build .#qingjian
+```
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+The traditional NUR entry point, `default.nix`, accepts the caller's `pkgs`:
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+```nix
+let
+  packages = import /path/to/NUR-Repo { inherit pkgs; };
+in {
+  environment.systemPackages = [ packages.portop packages.mihomo-oix ];
+}
+```
 
-<!--
-Uncomment this if you use travis:
+Use `overlays.default` (or `overlay.nix`) to expose the same package attributes in `pkgs`.
+`mihomo-oix` provides `bin/mihomo`; the overlay does not replace nixpkgs' `mihomo` attribute.
+Flake `packages` outputs are filtered by platform.
+`patchelf-unstable` includes the pinned LOAD segment fix from nix-conf (upstream PR #672); the overlay does not replace the standard `patchelf` package.
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+## Modules
 
+- `nixosModules.qingjian`: enable `services.qingjian.enable` to install the Qingjian server, settings application, Fcitx5 addon, and product data, and start the user service. Override the package with `services.qingjian.package`.
