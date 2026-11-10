@@ -8,7 +8,13 @@ All repository documentation, including README.md and this file, must be written
 
 Source revisions and NAR hashes for `rime-ice`, `qingjian`, `portop`, and `patchelf-unstable` are stored in their respective `pkgs/<name>/source.json` files.
 Update both the revision and hash when upgrading a package.
-For portop, also check `version` and `vendorHash`.
+For portop, `version` and `vendorHash` are also stored in `source.json` and must be updated together.
+Use `./pkgs/rime-ice/update.sh [ref]` (default: `main`) and
+`./pkgs/portop/update.sh [tag]` (default: latest stable release) to update these packages.
+For patchelf-unstable, `version` is also stored in `source.json`.
+Use `./pkgs/patchelf-unstable/update.sh [ref]` (default: `master`) to update it.
+Run `nix develop --command update-packages` to update all supported packages;
+Qingjian is intentionally excluded.
 Qingjian fetches its source with `pkgs.fetchgit`; update `version`, the bundled `Cargo.lock` and `data.lock`, and the Cargo Git dependency hashes together.
 
 mihomo-oix has a manifest of binary hashes for each platform and an update script:

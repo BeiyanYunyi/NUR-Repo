@@ -5,20 +5,18 @@
   fetchFromGitHub,
 }:
 
+let
+  source = lib.importJSON ./source.json;
+in
 buildGoModule (finalAttrs: {
   pname = "portop";
-  version = "0.3.0";
+  inherit (source) version vendorHash;
 
-  src =
-    let
-      source = lib.importJSON ./source.json;
-    in
-    fetchFromGitHub {
-      inherit (source) owner repo rev;
-      hash = source.narHash;
-    };
+  src = fetchFromGitHub {
+    inherit (source) owner repo rev;
+    hash = source.narHash;
+  };
 
-  vendorHash = "sha256-rx7CH/P9gm5fq+91sFs07qz+ElI06aUzNTptMfWRS4w=";
   subPackages = [ "cmd/portop" ];
   env.CGO_ENABLED = 0;
   ldflags = [

@@ -6,9 +6,9 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | --- | --- | --- |
 | `rime-ice` | `99662ba01e3affa6a0f009174ca530b887bac3b6` | Same as nixpkgs rime-ice |
 | `qingjian` | v0.3.3 | Linux |
-| `patchelf-unstable` | 0.19.2-unstable-2026-10-20 | Same as nixpkgs patchelf |
-| `portop` | v0.3.0 | Linux, Darwin |
-| `mihomo-oix` | alpha-oix-9910e8e | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
+| `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
+| `portop` | v0.4.0 | Linux, Darwin |
+| `mihomo-oix` | alpha-oix-82e659d | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
 
 The initial versions and hashes were migrated from nix-conf without modifying that repository.
 
@@ -48,3 +48,43 @@ Flake `packages` outputs are filtered by platform.
 ## Modules
 
 - `nixosModules.qingjian`: enable `services.qingjian.enable` to install the Qingjian server, settings application, Fcitx5 addon, and product data, and start the user service. Override the package with `services.qingjian.package`.
+
+## Package updates
+
+Run the update scripts from any directory. They use Nix to provide their tools:
+
+```sh
+./pkgs/rime-ice/update.sh [ref]
+./pkgs/portop/update.sh [tag]
+./pkgs/patchelf-unstable/update.sh [ref]
+./pkgs/mihomo-oix/update.sh [revision]
+```
+
+`rime-ice` follows `main` by default, or accepts a branch, tag, or commit.
+`portop` defaults to the latest stable GitHub release, or accepts a version tag
+such as `v0.3.0`. It updates the version, resolved commit, source NAR hash, and
+Go `vendorHash` together in `source.json`, using the repository's pinned nixpkgs
+to compute the dependency hash. The GitHub CLI must be authenticated for release
+discovery. `patchelf-unstable` follows `master` by default, or accepts a branch,
+tag, or commit. It derives the unstable version from the source's `version` file
+and commit date. These scripts replace `source.json` only after all prefetches
+succeed.
+
+`mihomo-oix` checks that all rolling-release assets have the same version before
+updating its binary hash manifest.
+
+To update all four supported packages from this checkout:
+
+```sh
+nix develop
+update-packages
+# Or without entering an interactive shell:
+nix develop --command update-packages
+```
+
+The development shell provides all required tools. `update-packages` calls the
+root `update.sh`, which can also be run directly. It stops on the first failure;
+updates completed before that failure remain in the working tree. Qingjian is
+excluded because its source, Cargo lock files, and Git dependency hashes require
+additional coordinated maintenance. Review the generated manifests and build the
+affected packages after updating.
