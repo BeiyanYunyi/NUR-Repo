@@ -16,7 +16,7 @@ let
     name = n;
     value = v;
   };
-  nurAttrs = import ./default.nix { pkgs = prev; };
+  nurAttrs = (import ./default.nix { pkgs = prev; }) // (import ./overlays/rime-ice.nix final prev);
 
 in
 builtins.listToAttrs (

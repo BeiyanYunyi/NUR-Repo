@@ -32,6 +32,15 @@ in {
 ```
 
 Use `overlays.default` (or `overlay.nix`) to expose the same package attributes in `pkgs`.
+Use `overlays.rime-ice` to override only `rime-ice`:
+
+```nix
+nixpkgs.overlays = [ inputs.nur-repo.overlays.rime-ice ];
+```
+
+The default overlay reuses this overlay, which explicitly passes the previous scope's
+`rime-ice` package to avoid resolving its own replacement through `callPackage`.
+
 `mihomo-oix` provides `bin/mihomo`; the overlay does not replace nixpkgs' `mihomo` attribute.
 Flake `packages` outputs are filtered by platform.
 `patchelf-unstable` includes the pinned LOAD segment fix from nix-conf (upstream PR #672); the overlay does not replace the standard `patchelf` package.
