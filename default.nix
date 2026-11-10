@@ -12,4 +12,5 @@
   patchelf-unstable = pkgs.callPackage ./pkgs/patchelf-unstable { };
   portop = pkgs.callPackage ./pkgs/portop { };
   mihomo-oix = pkgs.callPackage ./pkgs/mihomo-oix { };
+  codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
 }

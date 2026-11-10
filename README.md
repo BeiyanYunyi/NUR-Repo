@@ -9,14 +9,16 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
 | `portop` | v0.4.0 | Linux, Darwin |
 | `mihomo-oix` | alpha-oix-82e659d | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
+| `codex-bin` | 0.167.0 | aarch64-darwin, x86_64-linux (musl binaries) |
 
-The initial versions and hashes were migrated from nix-conf without modifying that repository.
+The initial versions and hashes were migrated from nix-conf.
 
 ## Usage
 
 ```sh
 nix build .#portop
 nix run .#mihomo-oix -- -v
+nix run .#codex-bin -- --version
 # Linux
 nix build .#qingjian
 ```
@@ -42,6 +44,10 @@ The default overlay reuses this overlay, which explicitly passes the previous sc
 `rime-ice` package to avoid resolving its own replacement through `callPackage`.
 
 `mihomo-oix` provides `bin/mihomo`; the overlay does not replace nixpkgs' `mihomo` attribute.
+`codex-bin` provides `bin/codex` and `bin/codex-code-mode-host`, shell completions,
+and the package layout required by the daemon. The overlay leaves nixpkgs' `codex`
+attribute unchanged. This package uses official release binaries; no `codex-src`
+package is provided.
 Flake `packages` outputs are filtered by platform.
 `patchelf-unstable` includes the pinned LOAD segment fix from nix-conf (upstream PR #672); the overlay does not replace the standard `patchelf` package.
 
@@ -58,6 +64,7 @@ Run the update scripts from any directory. They use Nix to provide their tools:
 ./pkgs/portop/update.sh [tag]
 ./pkgs/patchelf-unstable/update.sh [ref]
 ./pkgs/mihomo-oix/update.sh [revision]
+./pkgs/codex-bin/update.sh [tag]
 ```
 
 `rime-ice` follows `main` by default, or accepts a branch, tag, or commit.
@@ -73,7 +80,12 @@ succeed.
 `mihomo-oix` checks that all rolling-release assets have the same version before
 updating its binary hash manifest.
 
-To update all four supported packages from this checkout:
+`codex-bin` defaults to the latest stable GitHub release, or accepts a tag such
+as `rust-v0.167.0`. It updates the version and hashes of both the CLI and
+code-mode host for every supported platform together in `versions.json`, and
+replaces the manifest only after all downloads succeed.
+
+To update all five supported packages from this checkout:
 
 ```sh
 nix develop
