@@ -1,19 +1,19 @@
 {
-  "version": "0.167.0",
+  "version": "0.167.1",
   "aarch64-darwin": {
     "name": "codex-aarch64-apple-darwin",
-    "hash": "sha256-T8shryPEYwiUnuPZwjzd0Xyypgll7uvHVDpwilfHVOg=",
+    "hash": "sha256-xMJpV5nJ2dNoHfy1jU/16LODwOksmECWy7YWN2+usrg=",
     "codehost": {
       "name": "codex-code-mode-host-aarch64-apple-darwin",
-      "hash": "sha256-tMdLfYmU5fXLn96epMUwGiskkzF9W4sOLoUOqmgwvKw="
+      "hash": "sha256-U0pxYTK8LP3d5j39yAUhvu4Iv/MY8nlcwPYN/S2cbYI="
     }
   },
   "x86_64-linux": {
     "name": "codex-x86_64-unknown-linux-musl",
-    "hash": "sha256-OREAf8lAkbXuoqEFErK0/FK2c7wMswJuTL/wzVGN0GA=",
+    "hash": "sha256-IpxYDhmqA04Vqs7Q1aacIWwfUyH7JqO6SnX4SCnbQuc=",
     "codehost": {
       "name": "codex-code-mode-host-x86_64-unknown-linux-musl",
-      "hash": "sha256-KmXk3Ahh79av4HC+PZTLrRl2jzSHhfH6wbDSleffx0g="
+      "hash": "sha256-A/Q2wX1SZI8QJYRRLkZZPdzgAnlSk0t+xyXhoO6b+ng="
     }
   }
 }

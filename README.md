@@ -8,8 +8,8 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | `qingjian` | v0.3.3 | Linux |
 | `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
 | `portop` | v0.4.0 | Linux, Darwin |
-| `mihomo-oix` | alpha-oix-82e659d | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
-| `codex-bin` | 0.167.0 | aarch64-darwin, x86_64-linux (musl binaries) |
+| `mihomo-oix` | alpha-oix-83a0a17 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
+| `codex-bin` | 0.167.1 | aarch64-darwin, x86_64-linux (musl binaries) |
 
 The initial versions and hashes were migrated from nix-conf.
 
