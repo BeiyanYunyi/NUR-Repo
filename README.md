@@ -5,7 +5,7 @@ A personal [NUR](https://github.com/nix-community/NUR) package repository.
 | Package | Source version | Platforms |
 | --- | --- | --- |
 | `rime-ice` | `927e1cf1d3eeb9bf4be85e3f684dba4dd485b6f6` | Same as nixpkgs rime-ice |
-| `qingjian` | v0.3.3 | Linux |
+| `qingjian` | v0.3.4 | Linux |
 | `patchelf-unstable` | 0.19.3-unstable-2026-10-30 | Same as nixpkgs patchelf |
 | `portop` | v0.4.0 | Linux, Darwin |
 | `mihomo-oix` | alpha-oix-5413cd5 | x86_64-linux (amd64-v3), aarch64-linux, aarch64-darwin |
