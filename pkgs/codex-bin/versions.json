@@ -1,11 +1,11 @@
 {
-  "version": "0.171.0",
+  "version": "0.172.0",
   "aarch64-darwin": {
     "target": "aarch64-apple-darwin",
-    "hash": "sha256-zGNZD8u5f5/pXS8QqocIzlZ4NYRNOgo36H0X4AfXrKA="
+    "hash": "sha256-R1q8U8NJ6oAt3Zyw2xN2vvewVTtigsguRC56oJc82aU="
   },
   "x86_64-linux": {
     "target": "x86_64-unknown-linux-musl",
-    "hash": "sha256-hn4PY4oDu7+SLh93q9cNIuKD4qU/kygfygCayNDe5OA="
+    "hash": "sha256-QOFauXgwtxpkKktzKMpMMBvwteD6r+aKqm4alLBP8V8="
   }
 }
